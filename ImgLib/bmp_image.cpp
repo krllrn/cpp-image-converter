@@ -82,6 +82,11 @@ bool SaveBMP(const Path& file, const Image& image) {
 Image LoadBMP(const Path& file) {
     ifstream ifs(file, ios::binary);
 
+    if (!ifs) {
+        ifs.close();
+        return {};
+    }
+
     BitmapFileHeader file_header;
     ifs.read((char*)&file_header, sizeof(file_header));
     if (file_header.b != 'B' && file_header.m != 'M') {
